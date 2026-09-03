@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unic Gadgets | Mobile Accessories & Parts</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#f5f6fa;
+  color:#111;
+}
+
+/* HEADER */
+header{
+  background:#111827;
+  color:white;
+  padding:15px 5%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  position:sticky;
+  top:0;
+  z-index:1000;
+}
+
+.logo{
+  font-size:25px;
+  font-weight:bold;
+}
+
+.logo span{
+  color:#00d4ff;
+}
+
+.cart{
+  background:#00d4ff;
+  color:#111;
+  border:none;
+  padding:10px 15px;
+  border-radius:10px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* HERO */
+.hero{
+  padding:50px 6%;
+  background:linear-gradient(135deg,#111827,#263b63);
+  color:white;
+  text-align:center;
+}
+
+.hero h1{
+  font-size:40px;
+  margin-bottom:12px;
+}
+
+.hero p{
+  font-size:17px;
+  color:#dbeafe;
+}
+
+/* SEARCH */
+.search-box{
+  padding:20px 5%;
+  text-align:center;
+}
+
+.search-box input{
+  width:90%;
+  max-width:600px;
+  padding:15px;
+  border:1px solid #ddd;
+  border-radius:12px;
+  font-size:16px;
+  outline:none;
+}
+
+/* CATEGORIES */
+.categories{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  padding:5px 5% 20px;
+}
+
+.categories button{
+  border:none;
+  background:white;
+  padding:10px 18px;
+  border-radius:20px;
+  cursor:pointer;
+  white-space:nowrap;
+  box-shadow:0 2px 8px #ddd;
+}
+
+.categories button:hover{
+  background:#00d4ff;
+}
+
+/* PRODUCTS */
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+  gap:18px;
+  padding:10px 5% 40px;
+}
+
+.product{
+  background:white;
+  border-radius:15px;
+  padding:12px;
+  box-shadow:0 3px 15px rgba(0,0,0,.08);
+  transition:.2s;
+}
+
+.product:hover{
+  transform:translateY(-4px);
+}
+
+.product img{
+  width:100%;
+  height:170px;
+  object-fit:cover;
+  border-radius:12px;
+}
+
+.product h3{
+  margin:10px 0 5px;
+  font-size:17px;
+}
+
+.price{
+  font-size:19px;
+  font-weight:bold;
+  margin-bottom:10px;
+}
+
+.add{
+  width:100%;
+  padding:11px;
+  border:none;
+  border-radius:9px;
+  background:#111827;
+  color:white;
+  cursor:pointer;
+}
+
+.add:hover{
+  background:#00a8cc;
+}
+
+/* CART */
+#cartBox{
+  display:none;
+  position:fixed;
+  right:15px;
+  top:75px;
+  width:330px;
+  max-width:90%;
+  background:white;
+  padding:20px;
+  border-radius:15px;
+  box-shadow:0 5px 30px rgba(0,0,0,.25);
+  z-index:2000;
+}
+
+#cartBox h2{
+  margin-bottom:15px;
+}
+
+.cart-item{
+  display:flex;
+  justify-content:space-between;
+  padding:8px 0;
+  border-bottom:1px solid #eee;
+}
+
+.whatsapp{
+  width:100%;
+  margin-top:15px;
+  padding:13px;
+  border:none;
+  border-radius:10px;
+  background:#25D366;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* FOOTER */
+footer{
+  background:#111827;
+  color:white;
+  text-align:center;
+  padding:30px 10px;
+}
+
+footer p{
+  margin:7px;
+  color:#cbd5e1;
+}
+
+@media(max-width:500px){
+  .hero h1{
+    font-size:30px;
+  }
+
+  .products{
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    padding-left:3%;
+    padding-right:3%;
+  }
+
+  .product img{
+    height:140px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">Unic <span>Gadgets</span></div>
+  <button class="cart" onclick="toggleCart()">🛒 Cart (<span id="count">0</span>)</button>
+</header>
+
+<section class="hero">
+  <h1>UNIC GADGETS</h1>
+  <p>Mobile Accessories • Parts • Gadgets</p>
+</section>
+
+<div class="search-box">
+  <input
+    type="text"
+    id="search"
+    placeholder="🔍 Search products..."
+    onkeyup="searchProducts()"
+  >
+</div>
+
+<div class="categories">
+  <button onclick="filterProducts('all')">All</button>
+  <button onclick="filterProducts('accessory')">Accessories</button>
+  <button onclick="filterProducts('parts')">Mobile Parts</button>
+  <button onclick="filterProducts('audio')">Audio</button>
+  <button onclick="filterProducts('charger')">Chargers</button>
+</div>
+
+<section class="products" id="products">
+
+  <div class="product" data-category="accessory">
+    <img src="https://images.unsplash.com/photo-1609592424891-9e7c2f7f1a1e?auto=format&fit=crop&w=600&q=80">
+    <h3>Premium Mobile Cover</h3>
+    <div class="price">₹299</div>
+    <button class="add" onclick="addToCart('Premium Mobile Cover',299)">
+      Add to Cart
+    </button>
+  </div>
+
+  <div class="product" data-category="charger">
+    <img src="https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=600&q=80">
+    <h3>Fast Charger</h3>
+    <div class="price">₹499</div>
+    <button class="add" onclick="addToCart('Fast Charger',499)">
+      Add to Cart
+    </button>
+  </div>
+
+  <div class="product" data-category="audio">
+    <img src="https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?auto=format&fit=crop&w=600&q=80">
+    <h3>Wireless Earbuds</h3>
+    <div class="price">₹799</div>
+    <button class="add" onclick="addToCart('Wireless Earbuds',799)">
+      Add to Cart
+    </button>
+  </div>
+
+  <div class="product" data-category="parts">
+    <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80">
+    <h3>Mobile Display</h3>
+    <div class="price">₹1,499</div>
+    <button class="add" onclick="addToCart('Mobile Display',1499)">
+      Add to Cart
+    </button>
+  </div>
+
+  <div class="product" data-category="accessory">
+    <img src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=600&q=80">
+    <h3>Mobile Stand</h3>
+    <div class="price">₹199</div>
+    <button class="add" onclick="addToCart('Mobile Stand',199)">
+      Add to Cart
+    </button>
+  </div>
+
+  <div class="product" data-category="charger">
+    <img src="https://images.unsplash.com/photo-1591290619762-c5887b8e9c7c?auto=format&fit=crop&w=600&q=80">
+    <h3>USB Type-C Cable</h3>
+    <div class="price">₹149</div>
+    <button class="add" onclick="addToCart('USB Type-C Cable',149)">
+      Add to Cart
+    </button>
+  </div>
+
+</section>
+
+<!-- CART -->
+<div id="cartBox">
+  <h2>🛒 Your Cart</h2>
+
+  <div id="cartItems"></div>
+
+  <h3 style="margin-top:15px;">
+    Total: ₹<span id="total">0</span>
+  </h3>
+
+  <button class="whatsapp" onclick="orderWhatsApp()">
+    Order on WhatsApp
+  </button>
+</div>
+
+<footer>
+  <h2>Unic Gadgets</h2>
+  <p>Mobile Accessories & Mobile Parts</p>
+  <p>📞 Call: 9461142864</p>
+  <p>© 2026 Unic Gadgets. All Rights Reserved.</p>
+</footer>
+
+<script>
+
+let cart=[];
+let total=0;
+
+/* ADD TO CART */
+function addToCart(name,price){
+
+  cart.push({
+    name:name,
+    price:price
+  });
+
+  total += price;
+
+  updateCart();
+
+  alert(name+" added to cart!");
+}
+
+/* UPDATE CART */
+function updateCart(){
+
+  document.getElementById("count").innerText=cart.length;
+
+  document.getElementById("total").innerText=total;
+
+  let html="";
+
+  cart.forEach((item,index)=>{
+
+    html += `
+      <div class="cart-item">
+        <span>${item.name}</span>
+        <span>₹${item.price}</span>
+      </div>
+    `;
+
+  });
+
+  document.getElementById("cartItems").innerHTML=html;
+}
+
+/* OPEN CART */
+function toggleCart(){
+
+  let box=document.getElementById("cartBox");
+
+  if(box.style.display==="block"){
+    box.style.display="none";
+  }else{
+    box.style.display="block";
+  }
+}
+
+/* SEARCH */
+function searchProducts(){
+
+  let text=document.getElementById("search").value.toLowerCase();
+
+  let products=document.querySelectorAll(".product");
+
+  products.forEach(product=>{
+
+    let name=product.querySelector("h3").innerText.toLowerCase();
+
+    if(name.includes(text)){
+      product.style.display="block";
+    }else{
+      product.style.display="none";
+    }
+
+  });
+}
+
+/* FILTER */
+function filterProducts(category){
+
+  let products=document.querySelectorAll(".product");
+
+  products.forEach(product=>{
+
+    if(category==="all" ||
+       product.dataset.category===category){
+
+      product.style.display="block";
+
+    }else{
+
+      product.style.display="none";
+
+    }
+
+  });
+}
+
+/* WHATSAPP ORDER */
+function orderWhatsApp(){
+
+  if(cart.length===0){
+
+    alert("Cart is empty!");
+
+    return;
+  }
+
+  let message="Hello Unic Gadgets!%0A%0AI want to order:%0A";
+
+  cart.forEach(item=>{
+
+    message +=
+      "- "+item.name+" ₹"+item.price+"%0A";
+
+  });
+
+  message +=
+    "%0ATotal: ₹"+total+
+    "%0A%0APlease confirm my order.";
+
+  window.open(
+    "https://wa.me/919461142864?text="+message,
+    "_blank"
+  );
+}
+
+</script>
+
+</body>
+</html>
